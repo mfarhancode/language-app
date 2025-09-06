@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Practice Sentences - Language Learning App</title>
+  <style>
+    body {
+      background-color: #1e1e2f;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #66a1ff;
+    }
+
+    .card {
+      background-color: #2e2e3e;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 600px;
+      margin: 80px auto 0;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .input-box {
+      padding: 10px 14px;
+      font-size: 16px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      background-color: #1e1e2f;
+      color: #f0f0f0;
+      width: 80%;
+      margin: 16px 0;
+      outline: none;
+    }
+
+    .input-box:focus {
+      border-color: #66a1ff;
+      box-shadow: 0 0 8px rgba(102, 161, 255, 0.4);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      background-color: #324b84;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #3f61ad;
+    }
+
+    .btn:focus {
+      outline: none;
+      box-shadow: 0 0 5px rgba(102, 161, 255, 0.6);
+    }
+
+    .feedback {
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    .translation-box {
+      background: #27273a;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    .home-btn {
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: #2196f3;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .home-btn:hover {
+      background: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-btn">🏠 Home</a>
+  <h1>Practice Sentences</h1>
+  <div id="sentence-container" style="margin-top: 20px;"></div>
+
+  <script>
+    let allSentences = [];
+    let knownSentences = [];
+    let currentIndex = 0;
+
+    async function loadData(file) {
+      const res = await fetch(`data/${file}`);
+      if (!res.ok) return [];
+      return await res.json();
+    }
+
+    async function saveData(file, content) {
+      const res = await fetch('http://127.0.0.1:5000/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ file, content })
+      });
+      const data = await res.json();
+      return data.status === 'success';
+    }
+
+    function formatSentence(text) {
+      text = text.trim();
+      text = text.charAt(0).toUpperCase() + text.slice(1);
+      if (!text.endsWith('.') && !text.endsWith('!') && !text.endsWith('?')) {
+        text += '.';
+      }
+      return text;
+    }
+
+    function showSentenceCard(sentenceObj) {
+      const container = document.getElementById('sentence-container');
+      const sentence = formatSentence(sentenceObj.sentence_en);
+      container.innerHTML = `
+        <div class="card">
+          <p><strong>Translate this sentence to Bahasa Indonesia:</strong></p>
+          <h3>${sentence}</h3>
+          <input type="text" id="answer" class="input-box" placeholder="Type your translation..." autocomplete="off" />
+
+          <div class="btn-group">
+            <button class="btn" onclick="checkAnswer()">✅ Check</button>
+            <button class="btn" onclick="saveSentence()">⭐ Save</button>
+            <button class="btn" onclick="toggleTranslation()">👁️ Show Translation</button>
+          </div>
+          <div id="feedback" class="feedback"></div>
+          <div id="translation" class="translation-box" style="display: none;"></div>
+        </div>
+      `;
+
+      const input = document.getElementById('answer');
+      input.focus();
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          checkAnswer();
+        }
+      });
+
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('translation').style.display = 'none';
+    }
+
+    async function checkAnswer() {
+      const input = document.getElementById('answer').value.trim().toLowerCase();
+      const correct = allSentences[currentIndex].sentence_id.toLowerCase();
+      const feedback = document.getElementById('feedback');
+
+      if (!input) {
+        feedback.textContent = "Please enter your translation.";
+        feedback.style.color = 'red';
+        return;
+      }
+
+      if (input === correct) {
+        feedback.textContent = "✅ Correct!";
+        feedback.style.color = 'green';
+
+        if (!knownSentences.some(s => s.sentence_en === allSentences[currentIndex].sentence_en)) {
+          knownSentences.push(allSentences[currentIndex]);
+          await saveData('known_sentences.json', knownSentences);
+        }
+
+        currentIndex++;
+        if (currentIndex < allSentences.length) {
+          setTimeout(() => showSentenceCard(allSentences[currentIndex]), 1000);
+        } else {
+          setTimeout(() => {
+            document.getElementById('sentence-container').innerHTML = '<p>🎉 No new sentences to practice!</p>';
+          }, 1000);
+        }
+      } else {
+        feedback.textContent = "❌ Incorrect. Try again.";
+        feedback.style.color = 'red';
+      }
+    }
+
+    async function saveSentence() {
+      const sentence = allSentences[currentIndex];
+      const saved = await loadData('saved_sentences.json');
+      if (!saved.some(s => s.sentence_en === sentence.sentence_en)) {
+        saved.push(sentence);
+        await saveData('saved_sentences.json', saved);
+        document.getElementById('feedback').textContent = "⭐ Sentence saved!";
+        document.getElementById('feedback').style.color = 'blue';
+      }
+    }
+
+    function toggleTranslation() {
+      const translationBox = document.getElementById('translation');
+      if (translationBox.style.display === 'none') {
+        translationBox.style.display = 'block';
+const translation = allSentences[currentIndex].sentence_id.trim();
+let formatted = translation.charAt(0).toUpperCase() + translation.slice(1);
+if (!formatted.endsWith('.')) {
+  formatted += '.';
+}
+translationBox.innerHTML = `<strong>Translation:</strong> ${formatted}`;
+      } else {
+        translationBox.style.display = 'none';
+      }
+    }
+
+    async function startSentencePractice() {
+      const all = await loadData('sentences.json');
+      knownSentences = await loadData('known_sentences.json');
+
+      allSentences = all.filter(s =>
+        !knownSentences.some(k => k.sentence_en.toLowerCase() === s.sentence_en.toLowerCase())
+      );
+
+      if (allSentences.length === 0) {
+        document.getElementById('sentence-container').innerHTML = '<p>🎉 No new sentences to practice!</p>';
+        return;
+      }
+
+      currentIndex = 0;
+      showSentenceCard(allSentences[currentIndex]);
+    }
+
+    startSentencePractice();
+  </script>
+</body>
+</html>

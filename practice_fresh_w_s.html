@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Practice Fresh Words - Language Learning App</title>
+  <style>
+    /* (Same CSS you provided — unchanged for consistent UI) */
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: "Segoe UI", sans-serif;
+      background: #121212;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      user-select: none;
+    }
+
+    .container:hover {
+      box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 28px;
+      user-select: none;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 1rem;
+      font-size: 16px;
+      border: 1px solid #555;
+      background: #2c2c2c;
+      color: white;
+      border-radius: 8px;
+      box-sizing: border-box;
+      user-select: text;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      margin: 8px 6px 0 0;
+      cursor: pointer;
+      background: #4caf50;
+      color: white;
+      transition: background 0.2s ease;
+      user-select: none;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .delete-btn {
+      background: #e53935;
+    }
+
+    .delete-btn:hover {
+      background: #c62828;
+    }
+
+    .btn-group {
+      text-align: center;
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    #feedback {
+      margin-top: 1rem;
+      font-weight: bold;
+      text-align: center;
+      color: #ddd;
+      min-height: 1.2em;
+      user-select: text;
+    }
+
+    #word-translation {
+      margin-top: 1rem;
+      color: #ccc;
+      text-align: center;
+      user-select: text;
+      white-space: pre-wrap;
+      display: none;
+    }
+
+    a.home-btn {
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: #2196f3;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+
+    a.home-btn:hover {
+      background: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-btn">🏠 Home</a>
+
+  <div class="container" id="practice-container">
+    <h1>📚 Practice Fresh Words</h1>
+  </div>
+
+  <script>
+    let freshWords = [];
+    let skippedWords = [];
+    let currentIndex = 0;
+    let wordCorrect = false;
+
+    async function loadData(file) {
+      const res = await fetch(`data/${file}`);
+      if (!res.ok) return [];
+      return await res.json();
+    }
+
+    async function saveData(file, content) {
+      const res = await fetch('http://127.0.0.1:5000/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ file, content }),
+      });
+      const data = await res.json();
+      return data.status === 'success';
+    }
+
+    function capitalize(str) {
+      if (!str) return '';
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function showWordCard(wordObj) {
+      const container = document.getElementById('practice-container');
+      container.innerHTML = `
+        <h1>📚 Practice Fresh Words</h1>
+        <div>
+          <p><strong>Translate this word:</strong></p>
+          <h2 style="color:#9ecfff;">${capitalize(wordObj.word)}</h2>
+
+          <input type="text" id="word-answer" placeholder="Type Bahasa translation..." autocomplete="off" />
+
+          <div id="sentence-container" style="display:none;">
+            <p><strong>Translate this sentence:</strong></p>
+            <blockquote style="font-style:italic; color:#ccc; margin-top:0.5rem;">"${capitalize(wordObj.example_en)}"</blockquote>
+            <input type="text" id="sentence-answer" placeholder="Type Bahasa sentence translation..." autocomplete="off" />
+          </div>
+
+          <div class="btn-group">
+            <button id="checkBtn">✅ Check</button>
+            <button id="saveBtn">⭐ Save</button>
+            <button id="toggleBtn">👁️ Show Translation</button>
+            <button id="skipBtn" class="delete-btn">⏭️ Skip</button>
+          </div>
+
+          <div id="feedback"></div>
+          <div id="word-translation"></div>
+        </div>
+      `;
+
+      document.getElementById('word-answer').focus();
+
+      document.getElementById('checkBtn').addEventListener('click', checkAnswer);
+      document.getElementById('saveBtn').addEventListener('click', saveWord);
+      document.getElementById('toggleBtn').addEventListener('click', toggleWordTranslation);
+      document.getElementById('skipBtn').addEventListener('click', skipCurrentWord);
+
+      document.getElementById('word-answer').addEventListener('keydown', e => {
+        if (e.key === 'Enter') checkAnswer();
+      });
+      const sentenceInput = document.getElementById('sentence-answer');
+      if(sentenceInput) {
+        sentenceInput.addEventListener('keydown', e => {
+          if (e.key === 'Enter') checkAnswer();
+        });
+      }
+
+      wordCorrect = false;
+      clearFeedbackAndTranslation();
+      document.getElementById('sentence-container').style.display = 'none';
+    }
+
+    function clearFeedbackAndTranslation() {
+      const feedback = document.getElementById('feedback');
+      feedback.textContent = '';
+      const box = document.getElementById('word-translation');
+      box.textContent = '';
+      box.style.display = 'none';
+    }
+
+    function checkAnswer() {
+      const feedback = document.getElementById('feedback');
+      const wordInput = document.getElementById('word-answer').value.trim().toLowerCase();
+      const sentenceInput = document.getElementById('sentence-answer') ? document.getElementById('sentence-answer').value.trim().toLowerCase() : '';
+      const currentWord = freshWords[currentIndex];
+      const correctWord = currentWord.translation.toLowerCase();
+      const correctSentence = currentWord.example_id.toLowerCase();
+
+      if (!wordCorrect) {
+        if (!wordInput) {
+          feedback.textContent = "Please enter your answer for the word.";
+          feedback.style.color = 'red';
+          return;
+        }
+
+        if (wordInput === correctWord) {
+          feedback.textContent = "✅ Word correct! Now translate the sentence.";
+          feedback.style.color = 'limegreen';
+          wordCorrect = true;
+          // Show sentence input
+          document.getElementById('sentence-container').style.display = 'block';
+          document.getElementById('sentence-answer').focus();
+        } else {
+          feedback.textContent = "❌ Incorrect word. Try again.";
+          feedback.style.color = 'red';
+        }
+      } else {
+        // word already correct, check sentence
+        if (!sentenceInput) {
+          feedback.textContent = "Please enter your answer for the sentence.";
+          feedback.style.color = 'red';
+          return;
+        }
+
+        // if (sentenceInput === correctSentence) {
+        if (
+  sentenceInput.trim().replace(/[.!?]$/, '') ===
+  correctSentence.trim().replace(/[.!?]$/, '')
+) {
+
+          feedback.textContent = "✅ Correct sentence! Moving to next word...";
+          feedback.style.color = 'limegreen';
+          setTimeout(nextWord, 500);
+        } else {
+          feedback.textContent = "❌ Incorrect sentence. Try again.";
+          feedback.style.color = 'red';
+        }
+      }
+    }
+
+    async function saveWord() {
+      const word = freshWords[currentIndex];
+      let saved = await loadData('saved_words.json');
+      const feedback = document.getElementById('feedback');
+
+      if (!saved.some(w => w.word.toLowerCase() === word.word.toLowerCase())) {
+        saved.push(word);
+        const success = await saveData('saved_words.json', saved);
+        feedback.textContent = success ? "⭐ Word saved!" : "⚠️ Failed to save word.";
+        feedback.style.color = success ? 'deepskyblue' : 'orange';
+      } else {
+        feedback.textContent = "⭐ Word already saved.";
+        feedback.style.color = 'gray';
+      }
+    }
+
+    function toggleWordTranslation() {
+      const box = document.getElementById('word-translation');
+      const currentWord = freshWords[currentIndex];
+      if (box.style.display === 'none') {
+        box.style.display = 'block';
+        box.textContent = `Word: ${capitalize(currentWord.translation)}\nSentence: ${capitalize(currentWord.example_id)}`;
+      } else {
+        box.style.display = 'none';
+        box.textContent = '';
+      }
+    }
+
+    async function skipCurrentWord() {
+      const skipped = freshWords.splice(currentIndex, 1)[0];
+      skippedWords.push(skipped);
+      await saveData('fresh_words.json', freshWords);
+      await saveData('skipped_words.json', skippedWords);
+
+      if (freshWords.length === 0) {
+        showPracticeComplete();
+        return;
+      }
+
+      if (currentIndex >= freshWords.length) currentIndex = freshWords.length - 1;
+      showWordCard(freshWords[currentIndex]);
+    }
+
+    function showPracticeComplete() {
+      const container = document.getElementById('practice-container');
+      container.innerHTML = `
+        <h1>🎉 Practice Complete!</h1>
+        <div class="btn-group">
+          <button id="practiceAgainBtn">🔄 Practice Again</button>
+          <button id="clearAllBtn" class="delete-btn">🗑️ Delete All Fresh Words</button>
+        </div>
+        <div id="feedback"></div>
+      `;
+
+      document.getElementById('practiceAgainBtn').addEventListener('click', () => {
+        currentIndex = 0;
+        showWordCard(freshWords[currentIndex]);
+      });
+
+      document.getElementById('clearAllBtn').addEventListener('click', async () => {
+        if (!confirm("Are you sure you want to delete all fresh words?")) return;
+        freshWords = [];
+        await saveData('fresh_words.json', []);
+        document.getElementById('practice-container').innerHTML = "<p>No fresh words left to practice.</p>";
+      });
+    }
+
+    function nextWord() {
+      currentIndex++;
+      wordCorrect = false;
+      if (currentIndex < freshWords.length) {
+        showWordCard(freshWords[currentIndex]);
+      } else {
+        showPracticeComplete();
+      }
+    }
+
+    async function startPractice() {
+      freshWords = await loadData('fresh_words.json');
+      skippedWords = await loadData('skipped_words.json');
+
+      // Filter out skipped words
+      freshWords = freshWords.filter(
+        w => !skippedWords.some(s => s.word.toLowerCase() === w.word.toLowerCase())
+      );
+
+      if (!freshWords.length) {
+        document.getElementById('practice-container').innerHTML = "<p>No fresh words to practice.</p>";
+        return;
+      }
+
+      currentIndex = 0;
+      showWordCard(freshWords[currentIndex]);
+    }
+
+    startPractice();
+  </script>
+</body>
+</html>

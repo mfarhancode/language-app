@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Practice Fresh Words - Language Learning App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: "Segoe UI", sans-serif;
+      background: #121212;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      user-select: none;
+    }
+
+    .container:hover {
+      box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 28px;
+      user-select: none;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 1rem;
+      font-size: 16px;
+      border: 1px solid #555;
+      background: #2c2c2c;
+      color: white;
+      border-radius: 8px;
+      box-sizing: border-box;
+      user-select: text;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      margin: 8px 6px 0 0;
+      cursor: pointer;
+      background: #4caf50;
+      color: white;
+      transition: background 0.2s ease;
+      user-select: none;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .delete-btn {
+      background: #e53935;
+    }
+
+    .delete-btn:hover {
+      background: #c62828;
+    }
+
+    .btn-group {
+      text-align: center;
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    #feedback {
+      margin-top: 1rem;
+      font-weight: bold;
+      text-align: center;
+      color: #ddd;
+      min-height: 1.2em;
+      user-select: text;
+    }
+
+    #word-translation {
+      margin-top: 1rem;
+      color: #ccc;
+      text-align: center;
+      user-select: text;
+      display: none;
+    }
+
+    a.home-btn {
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: #2196f3;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+
+    a.home-btn:hover {
+      background: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-btn" title="Back to Home">🏠 Home</a>
+
+  <div class="container" id="practice-container">
+    <h1>📚 Practice Fresh Words</h1>
+    <!-- Content injected by JS -->
+  </div>
+
+  <script>
+    let freshWords = [];
+    let currentIndex = 0;
+
+    async function loadData(file) {
+      const res = await fetch(`data/${file}`);
+      if (!res.ok) return [];
+      return await res.json();
+    }
+
+    async function saveData(file, content) {
+      const res = await fetch('http://127.0.0.1:5000/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ file, content }),
+      });
+      const data = await res.json();
+      return data.status === 'success';
+    }
+
+    function capitalize(str) {
+      if (!str) return '';
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function showWordCard(wordObj) {
+      const container = document.getElementById('practice-container');
+      container.innerHTML = `
+        <h1>📚 Practice Fresh Words</h1>
+        <div>
+          <p><strong>Translate this word:</strong></p>
+          <h2 style="color:#9ecfff;">${capitalize(wordObj.word)}</h2>
+          <input
+            type="text"
+            id="answer"
+            placeholder="Type Bahasa translation..."
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+          />
+          <div class="btn-group">
+            <button id="checkBtn">✅ Check</button>
+            <button id="saveBtn">⭐ Save</button>
+            <button id="toggleBtn">👁️ Show Translation</button>
+            <button id="deleteBtn" class="delete-btn">🗑️ Delete Word</button>
+          </div>
+          <div id="feedback"></div>
+          <div id="word-translation"></div>
+        </div>
+      `;
+
+      const input = document.getElementById('answer');
+      input.focus();
+
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') checkAnswer();
+      });
+
+      document.getElementById('checkBtn').addEventListener('click', checkAnswer);
+      document.getElementById('saveBtn').addEventListener('click', saveWord);
+      document.getElementById('toggleBtn').addEventListener('click', toggleWordTranslation);
+      document.getElementById('deleteBtn').addEventListener('click', deleteCurrentWord);
+
+      clearFeedbackAndTranslation();
+    }
+
+    function clearFeedbackAndTranslation() {
+      const fb = document.getElementById('feedback');
+      const tr = document.getElementById('word-translation');
+      fb.textContent = '';
+      fb.style.color = '';
+      tr.textContent = '';
+      tr.style.display = 'none';
+    }
+
+    function checkAnswer() {
+      const input = document.getElementById('answer').value.trim().toLowerCase();
+      const correct = freshWords[currentIndex].translation.toLowerCase();
+      const feedback = document.getElementById('feedback');
+
+      if (!input) {
+        feedback.textContent = "Please enter your answer.";
+        feedback.style.color = 'red';
+        return;
+      }
+
+      if (input === correct) {
+        feedback.textContent = "✅ Correct!";
+        feedback.style.color = 'limegreen';
+
+        setTimeout(nextWord, 200);
+      } else {
+        feedback.textContent = "❌ Incorrect. Try again.";
+        feedback.style.color = 'red';
+      }
+    }
+
+    async function saveWord() {
+      const word = freshWords[currentIndex];
+      let saved = await loadData('saved_words.json');
+
+      if (!saved.some(w => w.word.toLowerCase() === word.word.toLowerCase())) {
+        saved.push(word);
+        const success = await saveData('saved_words.json', saved);
+        const feedback = document.getElementById('feedback');
+        if (success) {
+          feedback.textContent = "⭐ Word saved!";
+          feedback.style.color = 'deepskyblue';
+        } else {
+          feedback.textContent = "⚠️ Failed to save word.";
+          feedback.style.color = 'orange';
+        }
+      } else {
+        const feedback = document.getElementById('feedback');
+        feedback.textContent = "⭐ Word already saved.";
+        feedback.style.color = 'gray';
+      }
+    }
+
+    function toggleWordTranslation() {
+      const box = document.getElementById('word-translation');
+      const word = freshWords[currentIndex].translation;
+
+      if (box.style.display === 'none' || box.style.display === '') {
+        box.style.display = 'block';
+        box.textContent = `Translation: ${capitalize(word)}`;
+      } else {
+        box.style.display = 'none';
+        box.textContent = '';
+      }
+    }
+
+    // async function deleteCurrentWord() {
+    //   if (!confirm("Delete this word from fresh words?")) return;
+    //   freshWords.splice(currentIndex, 1);
+
+    //   if (freshWords.length === 0) {
+    //     await saveData('fresh_words.json', freshWords);
+    //     showPracticeComplete();
+    //     return;
+    //   }
+
+    //   await saveData('fresh_words.json', freshWords);
+
+    //   // Adjust index if needed
+    //   if (currentIndex >= freshWords.length) currentIndex = freshWords.length - 1;
+    //   showWordCard(freshWords[currentIndex]);
+    // }
+async function deleteCurrentWord() {
+  freshWords.splice(currentIndex, 1);
+
+  if (freshWords.length === 0) {
+    await saveData('fresh_words.json', freshWords);
+    showPracticeComplete();
+    return;
+  }
+
+  await saveData('fresh_words.json', freshWords);
+
+  // Adjust index if needed
+  if (currentIndex >= freshWords.length) currentIndex = freshWords.length - 1;
+  showWordCard(freshWords[currentIndex]);
+}
+
+// async function deleteCurrentWord() {
+//   freshWords.splice(currentIndex, 1);
+
+//   await saveData('fresh_words.json', freshWords);
+
+//   if (freshWords.length === 0) {
+//     showPracticeComplete();
+//     return;
+//   }
+
+//   // Adjust index if needed
+//   if (currentIndex >= freshWords.length) currentIndex = freshWords.length - 1;
+//   showWordCard(freshWords[currentIndex]);
+// }
+
+
+    function showPracticeComplete() {
+      const container = document.getElementById('practice-container');
+      container.innerHTML = `
+        <h1>🎉 Practice Complete!</h1>
+        <div class="btn-group">
+          <button id="practiceAgainBtn">🔄 Practice Again</button>
+          <button id="clearAllBtn" class="delete-btn">🗑️ Delete All Fresh Words</button>
+        </div>
+        <div id="feedback"></div>
+      `;
+
+      document.getElementById('practiceAgainBtn').addEventListener('click', () => {
+        currentIndex = 0;
+        showWordCard(freshWords[currentIndex]);
+        clearFeedbackAndTranslation();
+      });
+
+      document.getElementById('clearAllBtn').addEventListener('click', async () => {
+        if (!confirm("Are you sure you want to delete all fresh words?")) return;
+        freshWords = [];
+        await saveData('fresh_words.json', freshWords);
+        const container = document.getElementById('practice-container');
+        container.innerHTML = "<p>No fresh words left to practice.</p>";
+      });
+    }
+
+    function nextWord() {
+      currentIndex++;
+      if (currentIndex < freshWords.length) {
+        showWordCard(freshWords[currentIndex]);
+      } else {
+        showPracticeComplete();
+      }
+    }
+
+    async function startPractice() {
+      freshWords = await loadData('fresh_words.json');
+      if (!freshWords.length) {
+        document.getElementById('practice-container').innerHTML = "<p>No fresh words to practice.</p>";
+        return;
+      }
+
+      currentIndex = 0;
+      showWordCard(freshWords[currentIndex]);
+    }
+
+    startPractice();
+  </script>
+</body>
+</html>

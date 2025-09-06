@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All Data Viewer</title>
+  <link rel="stylesheet" href="data.css" />
+</head>
+<body>
+  <a href="index.html" class="home-btn">🏠 Home</a>
+  <h1>📂 All Data Viewer</h1>
+
+  <input type="text" id="search-input" placeholder="Search..." aria-label="Search" />
+
+  <label for="entries-per-page">Entries per page:</label>
+  <select id="entries-per-page" aria-label="Entries per page selector">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15" selected>15</option>
+    <option value="25">25</option>
+    <option value="50">50</option>
+    <option value="all">All</option>
+  </select>
+
+  <button id="delete-btn">🗑️ Delete Selected</button>
+  <button id="export-json-btn">📤 Export Selected JSON</button>
+  <button id="export-csv-btn">📄 Export Selected CSV</button>
+
+  <label><input type="checkbox" id="select-all" /> Select All</label>
+
+  <div id="table-container"></div>
+  <div id="pagination"></div>
+
+  <script src="all_data.js"></script>
+</body>
+</html>

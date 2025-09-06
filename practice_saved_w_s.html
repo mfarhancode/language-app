@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Practice: Word + Sentence</title>
+
+  <!-- <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: "Segoe UI", sans-serif;
+      background: #121212;
+      color: #ffffff;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .card {
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 25px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 28px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 1rem;
+      font-size: 16px;
+      border: 1px solid #555;
+      background: #2c2c2c;
+      color: white;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      margin: 8px 6px 0 0;
+      cursor: pointer;
+      background: #4caf50;
+      color: white;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .home-btn {
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: #2196f3;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .home-btn:hover {
+      background: #1976d2;
+    }
+
+    #feedback {
+      margin-top: 1rem;
+      font-weight: bold;
+      text-align: center;
+      color: #ddd;
+    }
+
+    .btn-group {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .example {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #ccc;
+    }
+
+    #translation {
+      margin-top: 1rem;
+      color: #ccc;
+      text-align: center;
+    }
+  </style> -->
+
+
+  <!-- <style>
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: "Segoe UI", sans-serif;
+      background: #121212;
+      color: #ffffff;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    #home-button {
+       text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: #2196f3;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    #practice-container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0 6px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #2e2e2e;
+      color: #fff;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 6px 6px 12px 0;
+      font-size: 14px;
+      background-color: #444;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .feedback {
+      margin-top: 6px;
+      font-size: 16px;
+      min-height: 22px;
+    }
+    .correct {
+      color: #4caf50;
+    }
+    .incorrect {
+      color: #f44336;
+    }
+    .translation-text {
+      margin-top: 6px;
+      font-style: italic;
+      color: #cccccc;
+      min-height: 18px;
+    }
+  </style> -->
+
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: "Segoe UI", sans-serif;
+      background: #121212;
+      color: #ffffff;
+    }
+
+    #home-button {
+      text-decoration: none;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: #2196f3;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #home-button:hover {
+      background: #1976d2;
+    }
+
+    #practice-container {
+      max-width: 800px;
+      margin: 80px auto 0;
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      font-size: 28px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 1rem;
+      background: #2c2c2c;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      margin: 15px 6px 0 0;
+      cursor: pointer;
+      background: #4caf50;
+      color: white;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .feedback {
+      margin-top: 6px;
+      font-size: 16px;
+      min-height: 22px;
+      /* margin-top: 0.5rem;
+      font-weight: bold;
+      text-align: center; */
+    }
+
+    .feedback.correct {
+      color: #4caf50;
+    }
+
+    .feedback.incorrect {
+      color: #f44336;
+    }
+
+    .translation-text {
+      
+      margin-top: 0.5rem;
+      color: #ccc;
+      text-align: center;
+    }
+
+    #sentence-display {
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    #delete-button {
+      margin-top: 20px;
+      background: #f44336;
+    }
+
+    #delete-button:hover {
+      background: #d32f2f;
+    }
+  </style>
+
+  
+</head>
+<body>
+  <button id="home-button" onclick="location.href='index.html'">Home</button>
+  <h1>Practice: Word + Sentence</h1>
+  <div id="practice-container">
+    <div id="word-display" style="font-weight: bold; font-size: 24px;"></div>
+    
+    <input type="text" id="word-input" placeholder="Enter word translation" autocomplete="off" spellcheck="false" />
+    <button onclick="checkWord()">✅ Check Word</button>
+    <button onclick="toggleWordTranslation()">👁️ Show Translation</button>
+    <div id="word-feedback" class="feedback"></div>
+    <div id="word-translation" class="translation-text"></div>
+
+    <div id="sentence-display" style="margin-top: 20px; font-style: italic;"></div>
+    
+    <input type="text" id="sentence-input" placeholder="Enter sentence translation" autocomplete="off" spellcheck="false" />
+    <button onclick="checkSentence()">✅ Check Sentence</button>
+    <button onclick="toggleSentenceTranslation()">👁️ Show Sentence Translation</button>
+    <div id="sentence-feedback" class="feedback"></div>
+    <div id="sentence-translation" class="translation-text"></div>
+
+    <button id="delete-button" style="margin-top: 20px;" onclick="deleteCurrentWord()">🗑️ Delete Word</button>
+  </div>
+
+  <script>
+    let savedWords = [];
+    let sentenceMap = {};
+    let currentIndex = 0;
+    let wordCorrect = false;
+
+    async function loadData(file) {
+      const res = await fetch(`data/${file}`);
+      if (!res.ok) return [];
+      return await res.json();
+    }
+
+    // async function saveData(file, content) {
+    //   await fetch(`/save/${file}`, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(content),
+    //   });
+    // }
+async function saveData(file, content) {
+  try {
+    const res = await fetch('http://127.0.0.1:5000/save', {  // Backend URL here
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ file, content }),
+    });
+    const result = await res.json();
+    if (!res.ok || result.status !== 'success') {
+      console.error("Failed to save data:", result.message || "Unknown error");
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("Error saving data:", error);
+    return false;
+  }
+}
+
+
+
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+
+    function capitalize(str) {
+      if (!str) return '';
+      str = str.trim().replace(/\.+$/, '');
+      return str.charAt(0).toUpperCase() + str.slice(1) + '.';
+    }
+
+    function renderCard() {
+      const wordObj = savedWords[currentIndex];
+      if (!wordObj) {
+        document.getElementById('practice-container').innerHTML = '<h2>🎉 Practice Complete!</h2>';
+        return;
+      }
+
+      wordCorrect = false;
+
+      // Show word (bold)
+      document.getElementById('word-display').textContent = capitalize(wordObj.word);
+      document.getElementById('word-input').value = '';
+      document.getElementById('word-feedback').textContent = '';
+      document.getElementById('word-feedback').className = 'feedback';
+      document.getElementById('word-translation').textContent = '';
+
+      // Show sentence English (italic)
+      const sentenceObj = sentenceMap[wordObj.word];
+      if (sentenceObj) {
+        document.getElementById('sentence-display').textContent = capitalize(sentenceObj.sentence_en);
+      } else {
+        document.getElementById('sentence-display').textContent = '';
+      }
+
+      document.getElementById('sentence-input').value = '';
+      document.getElementById('sentence-feedback').textContent = '';
+      document.getElementById('sentence-feedback').className = 'feedback';
+      document.getElementById('sentence-translation').textContent = '';
+
+      // Focus word input on new card
+      document.getElementById('word-input').focus();
+    }
+
+    function checkWord() {
+      const wordObj = savedWords[currentIndex];
+      const input = document.getElementById('word-input').value.trim().toLowerCase();
+      const correct = wordObj.translation.toLowerCase();
+
+      const feedback = document.getElementById('word-feedback');
+      if (input === correct) {
+        feedback.textContent = '✅ Correct';
+        feedback.className = 'feedback correct';
+        wordCorrect = true;
+        document.getElementById('sentence-input').focus();
+      } else {
+        feedback.textContent = '❌ Incorrect';
+        feedback.className = 'feedback incorrect';
+      }
+    }
+
+    function checkSentence() {
+      if (!wordCorrect) {
+        // Word must be correct first
+        document.getElementById('sentence-feedback').textContent = '❗ Check word first';
+        document.getElementById('sentence-feedback').className = 'feedback incorrect';
+        return;
+      }
+
+      const wordObj = savedWords[currentIndex];
+      const sentenceObj = sentenceMap[wordObj.word];
+      if (!sentenceObj) return; // No sentence available
+
+      let input = document.getElementById('sentence-input').value.trim().toLowerCase();
+      let correct = sentenceObj.sentence_id.toLowerCase();
+
+      // Ignore trailing full stop on both sides for checking
+      input = input.replace(/\.+$/, '');
+      correct = correct.replace(/\.+$/, '');
+
+      const feedback = document.getElementById('sentence-feedback');
+      if (input === correct) {
+        feedback.textContent = '✅ Correct';
+        feedback.className = 'feedback correct';
+        // Move to next word
+        currentIndex++;
+        setTimeout(() => {
+          renderCard();
+        }, 700);
+      } else {
+        feedback.textContent = '❌ Incorrect';
+        feedback.className = 'feedback incorrect';
+      }
+    }
+
+    function toggleWordTranslation() {
+      const wordObj = savedWords[currentIndex];
+      const translationDiv = document.getElementById('word-translation');
+      if (translationDiv.textContent === '') {
+        translationDiv.textContent = capitalize(wordObj.translation);
+      } else {
+        translationDiv.textContent = '';
+      }
+    }
+
+    function toggleSentenceTranslation() {
+      const wordObj = savedWords[currentIndex];
+      const sentenceObj = sentenceMap[wordObj.word];
+      const translationDiv = document.getElementById('sentence-translation');
+      if (!sentenceObj) return;
+
+      if (translationDiv.textContent === '') {
+        translationDiv.textContent = capitalize(sentenceObj.sentence_id);
+      } else {
+        translationDiv.textContent = '';
+      }
+    }
+
+    // function deleteCurrentWord() {
+    //   if (!confirm('Delete this word from saved words?')) return;
+    //   savedWords.splice(currentIndex, 1);
+    //   saveData('saved_words.json', savedWords);
+    //   if (currentIndex >= savedWords.length) currentIndex = savedWords.length -1;
+    //   renderCard();
+    // }
+
+   async function deleteCurrentWord() {
+  const wordToDelete = savedWords[currentIndex]?.word;
+  if (!wordToDelete) return; // safety check
+
+  savedWords = savedWords.filter(w => w.word !== wordToDelete);
+
+  const success = await saveData('saved_words.json', savedWords);
+  if (!success) {
+    // show error
+    return;
+  }
+
+  if (currentIndex >= savedWords.length) {
+    currentIndex = savedWords.length - 1; // avoid out of bounds
+  }
+
+  if (savedWords.length === 0) {
+    document.getElementById('practice-container').innerHTML = '<p>🎉 Practice Complete!</p>';
+  } else {
+    renderCard();
+  }
+}
+
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        if (!wordCorrect) {
+          checkWord();
+        } else {
+          checkSentence();
+        }
+      }
+    });
+
+    async function init() {
+      const [words, sentences] = await Promise.all([
+        loadData('saved_words.json'),
+        loadData('sentences.json')
+      ]);
+      savedWords = words;
+      shuffleArray(savedWords);
+      sentenceMap = {};
+      sentences.forEach(s => sentenceMap[s.word] = s);
+
+      renderCard();
+    }
+
+    init();
+  </script>
+</body>
+</html>

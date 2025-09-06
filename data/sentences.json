@@ -1,0 +1,347 @@
+[
+  {
+    "word": "i/me",
+    "sentence_en": "i am happy today.",
+    "sentence_id": "aku senang hari ini."
+  },
+  {
+    "word": "you",
+    "sentence_en": "you are my friend.",
+    "sentence_id": "kau adalah temanku."
+  },
+  {
+    "word": "that/which/who",
+    "sentence_en": "this is the book that i like.",
+    "sentence_id": "ini buku yang aku suka."
+  },
+  {
+    "word": "not",
+    "sentence_en": "i do not want coffee.",
+    "sentence_id": "saya tidak mau kopi."
+  },
+  {
+    "word": "this",
+    "sentence_en": "this is my house.",
+    "sentence_id": "ini rumah saya."
+  },
+  {
+    "word": "that",
+    "sentence_en": "that is my car.",
+    "sentence_id": "itu mobil saya."
+  },
+  {
+    "word": "and",
+    "sentence_en": "i have a pen and a book.",
+    "sentence_id": "saya punya pena dan buku."
+  },
+  {
+    "word": "he/she",
+    "sentence_en": "she is my teacher.",
+    "sentence_id": "dia guru saya."
+  },
+  {
+    "word": "at/in",
+    "sentence_en": "i am at home.",
+    "sentence_id": "saya di rumah."
+  },
+  {
+    "word": "will",
+    "sentence_en": "i will call you later.",
+    "sentence_id": "saya akan menelepon kamu nanti."
+  },
+  {
+    "word": "what",
+    "sentence_en": "what is this?",
+    "sentence_id": "apa ini?"
+  },
+  {
+    "word": "we",
+    "sentence_en": "we study together.",
+    "sentence_id": "kita belajar bersama."
+  },
+  {
+    "word": "for/to",
+    "sentence_en": "this gift is for you.",
+    "sentence_id": "hadiah ini untukmu."
+  },
+  {
+    "word": "can",
+    "sentence_en": "i can swim.",
+    "sentence_id": "saya bisa berenang."
+  },
+  {
+    "word": "there is/there are",
+    "sentence_en": "there is a cat here.",
+    "sentence_id": "ada kucing di sini."
+  },
+  {
+    "word": "not (colloquial)",
+    "sentence_en": "i do not know.",
+    "sentence_id": "saya tak tahu."
+  },
+  {
+    "word": "they",
+    "sentence_en": "they live in jakarta.",
+    "sentence_id": "mereka tinggal di jakarta."
+  },
+  {
+    "word": "you (formal)",
+    "sentence_en": "do you want water?",
+    "sentence_id": "anda mau air?"
+  },
+  {
+    "word": "know",
+    "sentence_en": "i know the answer.",
+    "sentence_id": "saya tahu jawabannya."
+  },
+  {
+    "word": "with",
+    "sentence_en": "i drink tea with sugar.",
+    "sentence_id": "saya minum teh dengan gula."
+  },
+  {
+    "word": "i/me",
+    "sentence_en": "i am a student.",
+    "sentence_id": "saya seorang murid."
+  },
+  {
+    "word": "from",
+    "sentence_en": "i come from bandung.",
+    "sentence_id": "saya dari bandung."
+  },
+  {
+    "word": "yes",
+    "sentence_en": "yes, i understand.",
+    "sentence_id": "ya, saya mengerti."
+  },
+  {
+    "word": "but",
+    "sentence_en": "i like it, but it is expensive.",
+    "sentence_id": "saya suka, tapi itu mahal."
+  },
+  {
+    "word": "we (exclusive)",
+    "sentence_en": "we will visit the park.",
+    "sentence_id": "kami akan pergi ke taman."
+  },
+  {
+    "word": "to/into",
+    "sentence_en": "i go to school.",
+    "sentence_id": "saya pergi ke sekolah."
+  },
+  {
+    "word": "must/have to",
+    "sentence_en": "you must study now.",
+    "sentence_id": "kamu harus belajar sekarang."
+  },
+  {
+    "word": "already",
+    "sentence_en": "i already ate.",
+    "sentence_id": "saya sudah makan."
+  },
+  {
+    "word": "you (informal)",
+    "sentence_en": "you are very kind.",
+    "sentence_id": "kamu sangat baik."
+  },
+  {
+    "word": "is/am/are",
+    "sentence_en": "this is my father.",
+    "sentence_id": "ini adalah ayah saya."
+  },
+  {
+    "word": "person/people",
+    "sentence_en": "that person is nice.",
+    "sentence_id": "orang itu baik."
+  },
+  {
+    "word": "only/just",
+    "sentence_en": "i only have one pen.",
+    "sentence_id": "saya hanya punya satu pena saja."
+  },
+  {
+    "word": "like/as",
+    "sentence_en": "this cake is like bread.",
+    "sentence_id": "kue ini seperti roti."
+  },
+  {
+    "word": "want",
+    "sentence_en": "i want to sleep.",
+    "sentence_id": "saya ingin tidur."
+  },
+  {
+    "word": "if",
+    "sentence_en": "if it rains, we stay home.",
+    "sentence_id": "jika hujan, kita tetap di rumah."
+  },
+  {
+    "word": "go",
+    "sentence_en": "i go to the market.",
+    "sentence_id": "saya pergi ke pasar."
+  },
+  {
+    "word": "only",
+    "sentence_en": "i only eat rice.",
+    "sentence_id": "saya hanya makan nasi."
+  },
+  {
+    "word": "all/same",
+    "sentence_en": "all children are happy.",
+    "sentence_id": "semua anak senang."
+  },
+  {
+    "word": "now",
+    "sentence_en": "i am busy now.",
+    "sentence_id": "saya sibuk sekarang."
+  },
+  {
+    "word": "here",
+    "sentence_en": "come here, please.",
+    "sentence_id": "tolong datang ke sini."
+  },
+  {
+    "word": "so/therefore",
+    "sentence_en": "it is raining, so i stay inside.",
+    "sentence_id": "hujan turun, jadi saya tetap di dalam."
+  },
+  {
+    "word": "in/inside",
+    "sentence_en": "the book is in the bag.",
+    "sentence_id": "buku ada dalam tas."
+  },
+  {
+    "word": "not/is not",
+    "sentence_en": "this is not my car.",
+    "sentence_id": "ini bukan mobil saya."
+  },
+  {
+    "word": "good/okay",
+    "sentence_en": "i feel good today.",
+    "sentence_id": "saya merasa baik hari ini."
+  },
+  {
+    "word": "how",
+    "sentence_en": "how are you today?",
+    "sentence_id": "bagaimana kabarmu hari ini?"
+  },
+  {
+    "word": "do not",
+    "sentence_en": "do not be late.",
+    "sentence_id": "jangan terlambat."
+  },
+  {
+    "word": "again",
+    "sentence_en": "please try again.",
+    "sentence_id": "tolong coba lagi."
+  },
+  {
+    "word": "have/possess",
+    "sentence_en": "i have two cats.",
+    "sentence_id": "saya punya dua kucing."
+  },
+  {
+    "word": "more/less",
+    "sentence_en": "i want more water.",
+    "sentence_id": "saya mau lebih banyak air."
+  },
+  {
+    "word": "oh",
+    "sentence_en": "oh, i see.",
+    "sentence_id": "oh, saya mengerti."
+  },
+  {
+    "word": "at/on",
+    "sentence_en": "he came on monday.",
+    "sentence_id": "dia datang pada hari senin."
+  },
+  {
+    "word": "maybe/perhaps",
+    "sentence_en": "maybe he is sick.",
+    "sentence_id": "mungkin dia sakit."
+  },
+  {
+    "word": "you (plural)",
+    "sentence_en": "you all are friends.",
+    "sentence_id": "kalian semua teman."
+  },
+  {
+    "word": "do/make",
+    "sentence_en": "please do your work.",
+    "sentence_id": "tolong lakukan pekerjaanmu."
+  },
+  {
+    "word": "because",
+    "sentence_en": "i am happy because of you.",
+    "sentence_id": "saya senang karena kamu."
+  },
+  {
+    "word": "very",
+    "sentence_en": "the food is very good.",
+    "sentence_id": "makanan itu sangat enak."
+  },
+  {
+    "word": "one",
+    "sentence_en": "i have one brother.",
+    "sentence_id": "saya punya satu saudara."
+  },
+  {
+    "word": "also",
+    "sentence_en": "i like apples and bananas too.",
+    "sentence_id": "saya suka apel dan pisang juga."
+  },
+  {
+    "word": "is it?/do you?",
+    "sentence_en": "is it true?",
+    "sentence_id": "apakah itu benar?"
+  },
+  {
+    "word": "want",
+    "sentence_en": "i want water.",
+    "sentence_id": "saya mau air."
+  },
+  {
+    "word": "ever",
+    "sentence_en": "i have never been there.",
+    "sentence_id": "saya tidak pernah ke sana."
+  },
+  {
+    "word": "who",
+    "sentence_en": "who is that person?",
+    "sentence_id": "siapa orang itu?"
+  },
+  {
+    "word": "already",
+    "sentence_en": "he has gone.",
+    "sentence_id": "dia telah pergi."
+  },
+  {
+    "word": "let’s",
+    "sentence_en": "let’s play football.",
+    "sentence_id": "ayo bermain sepak bola."
+  },
+  {
+    "word": "thing",
+    "sentence_en": "that is a good thing.",
+    "sentence_id": "itu hal yang baik."
+  },
+  {
+    "word": "time/moment",
+    "sentence_en": "at that time, i was tired.",
+    "sentence_id": "pada saat itu, saya lelah."
+  },
+  {
+    "word": "why",
+    "sentence_en": "why are you late?",
+    "sentence_id": "kenapa kamu terlambat?"
+  },
+  {
+    "word": "day",
+    "sentence_en": "today is a sunny day.",
+    "sentence_id": "hari ini cerah."
+  },
+  {
+    "word": "return/come back",
+    "sentence_en": "i return home at night.",
+    "sentence_id": "saya kembali ke rumah pada malam hari."
+  }
+]

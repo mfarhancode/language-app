@@ -1,0 +1,248 @@
+[
+  {
+    "word": "i/me",
+    "translation": "Aku",
+    "example_en": "i am a student.",
+    "example_id": "saya seorang murid."
+  },
+  {
+    "word": "you",
+    "translation": "Kau",
+    "example_en": "you are my friend.",
+    "example_id": "kau adalah temanku."
+  },
+  {
+    "word": "that/which/who",
+    "translation": "Yang",
+    "example_en": "this is the book that i like.",
+    "example_id": "ini buku yang aku suka."
+  },
+  {
+    "word": "not",
+    "translation": "Tidak",
+    "example_en": "i do not want coffee.",
+    "example_id": "saya tidak mau kopi."
+  },
+  {
+    "word": "this",
+    "translation": "Ini",
+    "example_en": "this is my house.",
+    "example_id": "ini rumah saya."
+  },
+  {
+    "word": "that",
+    "translation": "Itu",
+    "example_en": "that is my car.",
+    "example_id": "itu mobil saya."
+  },
+  {
+    "word": "and",
+    "translation": "Dan",
+    "example_en": "i have a pen and a book.",
+    "example_id": "saya punya pena dan buku."
+  },
+  {
+    "word": "he/she",
+    "translation": "Dia",
+    "example_en": "she is my teacher.",
+    "example_id": "dia guru saya."
+  },
+  {
+    "word": "at/in",
+    "translation": "Di",
+    "example_en": "i am at home.",
+    "example_id": "saya di rumah."
+  },
+  {
+    "word": "will",
+    "translation": "Akan",
+    "example_en": "i will call you later.",
+    "example_id": "saya akan menelepon kamu nanti."
+  },
+  {
+    "word": "what",
+    "translation": "Apa",
+    "example_en": "what is this?",
+    "example_id": "apa ini?"
+  },
+  {
+    "word": "we",
+    "translation": "Kita",
+    "example_en": "we study together.",
+    "example_id": "kita belajar bersama."
+  },
+  {
+    "word": "for/to",
+    "translation": "Untuk",
+    "example_en": "this gift is for you.",
+    "example_id": "hadiah ini untukmu."
+  },
+  {
+    "word": "can",
+    "translation": "Bisa",
+    "example_en": "i can swim.",
+    "example_id": "saya bisa berenang."
+  },
+  {
+    "word": "there is/there are",
+    "translation": "Ada",
+    "example_en": "there is a cat here.",
+    "example_id": "ada kucing di sini."
+  },
+  {
+    "word": "not (colloquial)",
+    "translation": "Tak",
+    "example_en": "i do not know.",
+    "example_id": "saya tak tahu."
+  },
+  {
+    "word": "they",
+    "translation": "Mereka",
+    "example_en": "they live in jakarta.",
+    "example_id": "mereka tinggal di jakarta."
+  },
+  {
+    "word": "you (formal)",
+    "translation": "Anda",
+    "example_en": "do you want water?",
+    "example_id": "anda mau air?"
+  },
+  {
+    "word": "know",
+    "translation": "Tahu",
+    "example_en": "i know the answer.",
+    "example_id": "saya tahu jawabannya."
+  },
+  {
+    "word": "with",
+    "translation": "Dengan",
+    "example_en": "i drink tea with sugar.",
+    "example_id": "saya minum teh dengan gula."
+  },
+  {
+    "word": "from",
+    "translation": "Dari",
+    "example_en": "i come from bandung.",
+    "example_id": "saya dari bandung."
+  },
+  {
+    "word": "yes",
+    "translation": "Ya",
+    "example_en": "yes, i understand.",
+    "example_id": "ya, saya mengerti."
+  },
+  {
+    "word": "but",
+    "translation": "Tapi",
+    "example_en": "i like it, but it is expensive.",
+    "example_id": "saya suka, tapi itu mahal."
+  },
+  {
+    "word": "we (exclusive)",
+    "translation": "Kami",
+    "example_en": "we will visit the park.",
+    "example_id": "kami akan pergi ke taman."
+  },
+  {
+    "word": "to/into",
+    "translation": "Ke",
+    "example_en": "i go to school.",
+    "example_id": "saya pergi ke sekolah."
+  },
+  {
+    "word": "must/have to",
+    "translation": "Harus",
+    "example_en": "you must study now.",
+    "example_id": "kamu harus belajar sekarang."
+  },
+  {
+    "word": "already",
+    "translation": "Sudah",
+    "example_en": "he has gone.",
+    "example_id": "dia telah pergi."
+  },
+  {
+    "word": "you (informal)",
+    "translation": "Kamu",
+    "example_en": "you are very kind.",
+    "example_id": "kamu sangat baik."
+  },
+  {
+    "word": "is/am/are",
+    "translation": "Adalah",
+    "example_en": "this is my father.",
+    "example_id": "ini adalah ayah saya."
+  },
+  {
+    "word": "person/people",
+    "translation": "Orang",
+    "example_en": "that person is nice.",
+    "example_id": "orang itu baik."
+  },
+  {
+    "word": "only/just",
+    "translation": "Saja",
+    "example_en": "i only have one pen.",
+    "example_id": "saya hanya punya satu pena saja."
+  },
+  {
+    "word": "like/as",
+    "translation": "Seperti",
+    "example_en": "this cake is like bread.",
+    "example_id": "kue ini seperti roti."
+  },
+  {
+    "word": "want",
+    "translation": "Ingin",
+    "example_en": "i want water.",
+    "example_id": "saya mau air."
+  },
+  {
+    "word": "if",
+    "translation": "Jika",
+    "example_en": "if it rains, we stay home.",
+    "example_id": "jika hujan, kita tetap di rumah."
+  },
+  {
+    "word": "go",
+    "translation": "Pergi",
+    "example_en": "i go to the market.",
+    "example_id": "saya pergi ke pasar."
+  },
+  {
+    "word": "only",
+    "translation": "Hanya",
+    "example_en": "i only eat rice.",
+    "example_id": "saya hanya makan nasi."
+  },
+  {
+    "word": "all/same",
+    "translation": "Semua",
+    "example_en": "all children are happy.",
+    "example_id": "semua anak senang."
+  },
+  {
+    "word": "now",
+    "translation": "Sekarang",
+    "example_en": "i am busy now.",
+    "example_id": "saya sibuk sekarang."
+  },
+  {
+    "word": "here",
+    "translation": "Sini",
+    "example_en": "come here, please.",
+    "example_id": "tolong datang ke sini."
+  },
+  {
+    "word": "so/therefore",
+    "translation": "Jadi",
+    "example_en": "it is raining, so i stay inside.",
+    "example_id": "hujan turun, jadi saya tetap di dalam."
+  },
+  {
+    "word": "in/inside",
+    "translation": "Dalam",
+    "example_en": "the book is in the bag.",
+    "example_id": "buku ada dalam tas."
+  }
+]

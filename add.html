@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Words - Language Learning App</title>
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e2f;
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Container box */
+    .container {
+      background: #2a2a40;
+      padding: 40px 30px;
+      border-radius: 16px;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 6px 18px rgba(38, 117, 252, 0.4);
+      transition: box-shadow 0.3s ease;
+      text-align: center;
+      user-select: none;
+    }
+    .container:hover {
+      box-shadow:
+        0 0 15px 5px rgba(101, 81, 255, 0.7),
+        0 0 30px 10px rgba(38, 117, 252, 0.7);
+    }
+
+    /* Home button top right */
+    a.home-btn {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      color: #f0f0f0;
+      text-decoration: none;
+      font-size: 1.3rem;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    a.home-btn:hover {
+      color: #66a1ff;
+    }
+
+    /* Card inside container */
+    .card {
+      margin-top: 30px;
+      user-select: text;
+    }
+
+    /* Heading */
+    h1 {
+      font-size: 32px;
+      margin-bottom: 36px;
+      color: #e0e0ff;
+      text-shadow: 0 0 10px rgba(101, 81, 255, 0.8);
+      user-select: none;
+    }
+
+    /* Sections */
+    .input-section {
+      margin-bottom: 40px;
+      text-align: left;
+    }
+    .input-section h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: #c8caff;
+    }
+    .subtext {
+      font-size: 14px;
+      color: #999ccc;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+    pre.format-example {
+      background: #1e1e2f;
+      border: 1px solid #444466;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'Consolas', monospace;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #a0aaff;
+      user-select: text;
+      white-space: pre-wrap;
+      max-width: 100%;
+      margin-bottom: 20px;
+    }
+
+    /* Textarea styling */
+    textarea#pasteInput {
+      width: 100%;
+      font-family: 'Consolas', monospace;
+      font-size: 16px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1.5px solid #444466;
+      background: #1e1e2f;
+      color: #ddd;
+      resize: none;  /* Disable manual resize */
+      box-shadow: inset 0 0 10px rgba(38, 117, 252, 0.2);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      min-height: 180px;
+    }
+    textarea#pasteInput:focus {
+      outline: none;
+      border-color: #4a7eff;
+      box-shadow: 0 0 15px rgba(38, 117, 252, 0.7);
+      background: #272946;
+      color: #f0f0f0;
+    }
+
+    /* File input */
+    input[type="file"] {
+      display: block;
+      margin-top: 10px;
+      font-size: 15px;
+      color: #ccc;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Buttons */
+    button {
+      margin-top: 16px;
+      padding: 14px 0;
+      width: 100%;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 5px 15px rgba(38, 117, 252, 0.4);
+      user-select: none;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(38, 117, 252, 0.7);
+    }
+
+    /* Message box */
+    .message {
+      margin-top: 24px;
+      font-weight: 600;
+      color: lightgreen;
+      min-height: 1.2em;
+      user-select: text;
+    }
+  </style>
+
+  <script src="libs/xlsx.full.min.js"></script>
+  <script defer src="upload.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Top Right Home Button -->
+    <a href="index.html" class="home-btn" title="Back to Home">🏠 Home</a>
+
+    <div class="card">
+      <h1>📥 Add New Words</h1>
+
+      <!-- Manual Input Section -->
+      <section class="input-section">
+        <h2>Paste Manually</h2>
+        <p class="subtext">Use this format:</p>
+        <pre class="format-example">
+Word:Translation:English sentence:Translation sentence.
+Run:Lari:I run every morning before breakfast.:Saya berlari setiap pagi sebelum sarapan.
+Eat:Makan:We eat lunch at 1 PM.:Kami makan siang pukul 1 siang.
+        </pre>
+
+        <textarea id="pasteInput" rows="10" placeholder="Word:Translation:English Sentence:Translation Sentence"
+"></textarea>
+        <button id="pasteBtn">➕ Add Pasted Words</button>
+      </section>
+
+      <hr style="border-color:#444466" />
+
+      <!-- File Upload Section -->
+      <section class="input-section">
+        <h2>Upload from CSV or Excel</h2>
+        <p class="subtext">Have your vocab in a spreadsheet? Upload it here.</p>
+        <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" />
+        <button id="uploadBtn">📤 Upload File</button>
+      </section>
+
+      <div id="message" class="message"></div>
+    </div>
+  </div>
+</body>
+</html>

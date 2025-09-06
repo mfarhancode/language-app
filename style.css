@@ -1,0 +1,126 @@
+/* Overall body styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 40px;
+  margin: 0;
+  background: #1e1e2f;
+  color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  overflow-x: hidden;
+  animation: fadeSlideIn 0.8s ease forwards;
+}
+
+/* Fade and slide down animation on body load */
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Centered box for app content */
+.container {
+  background: #2a2a40;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 100%;
+  max-width: 480px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.container:hover {
+  box-shadow: 0 12px 40px rgba(38, 117, 252, 0.7);
+  transform: translateY(-6px);
+}
+
+/* Heading style */
+h1 {
+  margin-bottom: 30px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #e0e0ff;
+  text-shadow: 0 0 8px rgba(101, 81, 255, 0.8);
+  letter-spacing: 1.2px;
+  user-select: none;
+  animation: glowPulse 2.5s ease-in-out infinite alternate;
+}
+
+/* Glow pulse animation for heading */
+@keyframes glowPulse {
+  0% {
+    text-shadow: 0 0 8px rgba(101, 81, 255, 0.5);
+  }
+  100% {
+    text-shadow: 0 0 18px rgba(101, 81, 255, 1);
+  }
+}
+
+/* Navigation buttons layout */
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* Buttons */
+button {
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(38, 117, 252, 0.3);
+  will-change: transform, box-shadow;
+  user-select: none;
+}
+
+/* Bounce on hover */
+button:hover {
+  background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(38, 117, 252, 0.7);
+  animation: bounce 0.3s ease;
+}
+
+/* Bounce keyframe */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-4px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.08);
+  }
+}
+
+/* Home link (optional style if used elsewhere) */
+a.home-btn {
+  color: #ffffff;
+  text-decoration: none;
+  margin-bottom: 20px;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 0.2s ease;
+  user-select: none;
+}
+
+a.home-btn:hover {
+  color: #6a11cb;
+  text-decoration: underline;
+}
+

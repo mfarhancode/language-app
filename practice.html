@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Practice - Language Learning App</title>
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e2f;
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative; /* So absolutely positioned home-btn relates to body */
+    }
+
+    /* Container box */
+    .container {
+      background: #2a2a40;
+      padding: 40px 30px;
+      border-radius: 16px;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 6px 18px rgba(38, 117, 252, 0.4);
+      transition: box-shadow 0.3s ease;
+      text-align: center;
+      user-select: none;
+    }
+    .container:hover {
+      box-shadow:
+        0 0 15px 5px rgba(101, 81, 255, 0.7),
+        0 0 30px 10px rgba(38, 117, 252, 0.7);
+    }
+
+    /* Home button top right */
+    a.home-btn {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      color: #f0f0f0;
+      text-decoration: none;
+      font-size: 1.3rem;
+      user-select: none;
+      transition: color 0.3s ease;
+      z-index: 1000;
+    }
+    a.home-btn:hover {
+      color: #66a1ff;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 36px;
+      color: #e0e0ff;
+      text-shadow: 0 0 10px rgba(101, 81, 255, 0.8);
+      user-select: none;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    nav button {
+      padding: 16px 0;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      box-shadow: 0 5px 15px rgba(38, 117, 252, 0.4);
+    }
+
+    nav button:hover {
+      background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(38, 117, 252, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Top Right Home Button (same style & position as add page) -->
+    <a href="index.html" class="home-btn" title="Back to Home">🏠 Home</a>
+
+    <h1>🧠 Practice Center</h1>
+
+    <nav>
+      <button onclick="location.href='practice_fresh_w_s.html'">Practice Fresh Words + Sentences</button>
+      <button onclick="location.href='practice_saved_w_s.html'">Practice Saved Words + Sentences</button>
+      <button onclick="location.href='practice_fresh_words.html'">📚 Practice Fresh Words</button>
+      <button onclick="location.href='practice_known_words.html'">✅ Practice All Known Words</button>
+      <button onclick="location.href='practice_saved_words.html'">⭐ Focused Word Practice</button>
+      <button onclick="location.href='practice_known_sentences.html'">📝 Practice Known Sentences</button>
+      <button onclick="location.href='practice_saved_sentences.html'">⭐ Focused Sentence Practice</button>
+      
+      <!-- Optional future extension -->
+      <!-- <button onclick="location.href='practice_mixed.html'">♻️ Mixed Practice</button> -->
+    </nav>
+  </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+/* learn_style.css - shared for learn/practice pages */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1e1e2f;
+  color: #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 40px 20px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#practice-container {
+  background-color: #2a2a40;
+  border-radius: 12px;
+  padding: 30px 25px;
+  max-width: 600px;
+  width: 100%;
+  user-select: none;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 25px;
+  color: #c8caff;
+  user-select: text;
+  font-weight: 700;
+  text-align: center;
+}
+
+h3 {
+  font-weight: 600;
+  margin-bottom: 20px;
+  user-select: text;
+  color: #d0d4ff;
+}
+
+input[type="text"] {
+  width: 90%;
+  padding: 14px 18px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1.5px solid #444466;
+  background-color: #1e1e2f;
+  color: #ddd;
+  user-select: text;
+  outline-offset: 2px;
+  outline-color: #4a7eff;
+  transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+input[type="text"]:focus {
+  background-color: #272946;
+  border-color: #4a7eff;
+  box-shadow: 0 0 15px rgba(38, 117, 252, 0.7);
+  color: #f0f0f0;
+}
+
+.btn-group {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  user-select: none;
+}
+
+button {
+  cursor: pointer;
+  padding: 13px 25px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  user-select: none;
+  flex: 1;
+  max-width: 140px;
+  box-shadow: none;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+}
+
+#feedback {
+  margin-top: 18px;
+  min-height: 1.5em;
+  font-weight: 600;
+  user-select: text;
+  font-size: 1.1em;
+}
+
+#sentence-translation {
+  margin-top: 18px;
+  font-style: italic;
+  color: #a0a0c0;
+  user-select: text;
+  display: none;
+}
+
+.home-btn {
+  text-decoration: none;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: #2196f3;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  user-select: none;
+  font-weight: 600;
+}
+
+.home-btn:hover {
+  background: #1976d2;
+}
